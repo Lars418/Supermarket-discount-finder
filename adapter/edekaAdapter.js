@@ -18,7 +18,7 @@ export default async function edekaAdapter(url, city) {
             .map(product => ({
                 name: product.title || '',
                 price: product.price.rawValue,
-                descriptions: product.description || '',
+                description: product.description || '',
                 tags: product.criteria ? product.criteria.map(x => x.name) : [],
                 additional: product.additionalTextApp,
                 baseUnit: product.baseUnit,

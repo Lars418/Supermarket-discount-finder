@@ -1,4 +1,5 @@
 import {JSDOM} from "jsdom";
+import {isNoUnwantedProduct} from "../config.js";
 
 export default async function kauflandAdapter(url, city){
     const response = await fetch(url);
@@ -40,7 +41,7 @@ export default async function kauflandAdapter(url, city){
                 : null,
             image: product.querySelector('img') ? product.querySelector('img').dataset.src : null
         };
-    });
+    }).filter(product => isNoUnwantedProduct(product.name, product.description));
 
     return {
         products,

@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Lars Kölker <lars@koelker.dev>"
+  "author": "Lars Kölker <lars@koelker.dev>",
+  "type": "module",
+  "dependencies": {
+    "jsdom": "^24.0.0"
+  }
 }

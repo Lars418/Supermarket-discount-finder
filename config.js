@@ -1,38 +1,47 @@
+import edekaAdapter from "./adapter/edekaAdapter.js";
+import kauflandAdapter from "./adapter/kauflandAdapter.js";
+
 export const supermarkets = [
     {
         url: 'https://www.rewe.de/angebote/garrel/241055/rewe-markt-hauptstr-96/?week=current&categories=bier%2Cwein-und-spirituosen', // fuck WAF
-        supermarket: 'Rewe',
-        city: 'Garrel'
+        name: 'REWE',
+        city: 'Garrel',
+        hidden: true,
     },
     {
-        url: 'https://www.edeka.de/eh/minden-hannover/edeka-husmann-pingel-anton-str.-4-6/angebote.jsp',
-        supermarket: 'EDEKA',
+        url: 'https://www.edeka.de/api/offers?limit=999&marketId=142107',
+        name: 'EDEKA',
         city: 'Cloppenburg',
+        hidden: true,
     },
     {
-        url: 'https://www.edeka.de/eh/minden-hannover/edeka-vera-rabal-alter-sch%C3%BCtzenplatz-1/angebote.jsp',
-        supermarket: 'EDEKA',
+        url: 'https://www.edeka.de/api/offers?limit=999&marketId=6280724',
+        name: 'EDEKA',
         city: 'Molbergen',
+        hidden: true,
     },
     {
-        url: 'https://www.edeka.de/eh/minden-hannover/edeka-gemoll-am-m%C3%BChlencenter-17/angebote.jsp',
-        supermarket: 'EDEKA',
-        city: 'Emstek'
+        url: 'https://www.edeka.de/api/offers?limit=999&marketId=6280724',
+        name: 'EDEKA',
+        city: 'Emstek',
+        hidden: true,
     },
     {
         url: 'https://filiale.kaufland.de/angebote/aktuelle-woche/uebersicht.category=08_Getr%C3%A4nke__Spirituosen.html',
-        supermarket: 'Kaufland',
+        name: 'KAUFLAND',
+        hidden: true,
     },
     {
         url: 'https://www.lidl.de/c/billiger-montag/a10006065?channel=store&tabCode=Current_Sales_Week#10019717',
-        supermarket: 'LIDL',
+        name: 'LIDL',
+        hidden: true
     },
     {
         url: 'https://www.bonialserviceswidget.de/de/stores/DE-47692507/brochures?storeId=DE-47692507&publisherId=DE-47692065&limit=100&hasOffers=true&lng=8.05186&lat=52.8419', // get brochure-id
         custom: {
             brochureProductsUrl: 'https://www.bonialserviceswidget.de/de/v2/offers/{brochureId}?pages={pages}', // insert brocureId and page numbers (1,2,3,...)
         },
-        supermarket: 'Famila',
+        name: 'FAMILA',
         city: 'Cloppenburg'
     },
     {
@@ -40,7 +49,7 @@ export const supermarkets = [
         custom: {
             brochureProductsUrl: 'https://www.bonialserviceswidget.de/de/v2/offers/{brochureId}?pages={pages}',
         },
-        supermarket: 'Combi',
+        name: 'COMBI',
         city: 'Cappeln'
     },
     {
@@ -48,7 +57,29 @@ export const supermarkets = [
         custom: {
             cookie: 'netto_user_stores_id=2002',
         },
-        supermarket: 'Netto',
+        name: 'NETTO',
         city: 'Cappeln'
     }
 ];
+
+export function isNoUnwantedProduct(name, description) {
+    if (name.toUpperCase().includes('MINERALWASSER')) {
+        return false;
+    }
+
+    if (name.toUpperCase().includes('OETTINGER')) { // Pisse
+        return false;
+    }
+
+    if ((description || '').toUpperCase().includes('FRUCHTSAFT')) {
+        return false;
+    }
+
+    return true;
+}
+
+export const SUPERMARKET_ADAPTER_MAPPING = {
+    REWE: null,
+    EDEKA: edekaAdapter,
+    KAUFLAND: kauflandAdapter,
+}

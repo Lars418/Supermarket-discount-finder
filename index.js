@@ -44,7 +44,7 @@ const response = await transporter.sendMail({
         name: 'Lars Alkoholradar',
         address: process.env.EMAIL_ADDRESS
     },
-    to: 'meteorgamer99@gmail.com',
+    to: process.env.EMAIL_RECEIVER,
     subject: `Lars Alkoholradar - KW ${new Date().getWeekNumber()}`,
     text: email,
     html: email,

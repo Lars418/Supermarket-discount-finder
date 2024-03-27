@@ -27,9 +27,7 @@ for (const supermarket of supermarkets) {
 }
 
 const email = createEmail(SUPERMARKET_DISCOUNTS);
-
-fs.writeFileSync('./email.html', email);
-console.log(email);
+console.log('Email content created!');
 
 const transporter = nodemailer.createTransport({
     host: process.env.HOST,
@@ -42,9 +40,14 @@ const transporter = nodemailer.createTransport({
 });
 
 const response = await transporter.sendMail({
-    from: process.env.EMAIL_ADDRESS,
+    from: {
+        name: 'Lars Alkoholradar',
+        address: process.env.EMAIL_ADDRESS
+    },
     to: 'meteorgamer99@gmail.com',
     subject: `Lars Alkoholradar - KW ${new Date().getWeekNumber()}`,
     text: email,
     html: email,
 });
+
+console.log('Email send!');

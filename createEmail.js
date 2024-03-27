@@ -31,15 +31,18 @@ export function createEmail(supermarketDiscounts) {
                 </style>
             </head>
             <body style="margin: 0;padding: 0;font-size: 16px;font-family: Arial, sans-serif;background-color: #eaeaea;">
-                <h1>
-                    <img
-                        src="https://raw.githubusercontent.com/Lars418/supermarket-discount-finder/main/img/alkoholradar.png"
-                        alt="Lars Alkohol Radar"
-                        draggable="false"
-                    >
-                </h1>
+                <a href="#">
+                    <h1 style="text-align: center">
+                        <img
+                            src="https://raw.githubusercontent.com/Lars418/supermarket-discount-finder/main/img/alkoholradar.png"
+                            alt="Lars Alkohol Radar"
+                            draggable="false"
+                            style="max-width: 1050px;width:100%"
+                        >
+                    </h1>
+                </a>
                 
-                <strong style="color:red;">Einige E-Mail-Anbieter kürzen die E-Mail. Sofern am Ende der E-Mail "Vollständige Nachricht ansehen" steht, bitte unbedingt darauf klicken, da ansonsten nicht alle Angebote angezeigt werden.</strong>
+                <strong style="display:block;text-align: center;color:red;">Einige E-Mail-Anbieter kürzen die E-Mail. Sofern am Ende der E-Mail "Vollständige Nachricht ansehen" steht, bitte unbedingt darauf klicken, da ansonsten nicht alle Angebote angezeigt werden.</strong>
                 
                 <hr>
     `;
@@ -77,18 +80,17 @@ export function createEmail(supermarketDiscounts) {
                        <div style="width: 250px;height:400px;padding: 0.25rem;background-color: #d5d5d5;">
                            <div style="background-color: white;height: 244px;position: relative;margin: auto;padding: .25rem;">
                                 <img src="${product.image}" alt="" draggable="false" style="text-align: center;vertical-align: center;width: 220px;height: 200px;object-fit: contain;">
-                                <span style="display: block;text-align: right;font-size: 1.25rem;font-weight: bold;color: red;">${formatter.format(product.price)}</span>
+                                <div style="text-align: right;font-size: 1.25rem;font-weight: bold;color: red;">
+                                    ${product.oldPrice ? `<span style="text-decoration: line-through;display:inline-block;margin-right:0.5rem;">${formatter.format(product.oldPrice)}</span>` : ''}
+                                    <span>${formatter.format(product.price)}</span>
+                                </div>
                            </div> 
                            <h3 style="word-break: break-all;">${product.name}</h3>
                            
-                           ${product.specialDiscountPrice ? `<h5 style=" margin: 0; color: darkgray;font-size: 0.85rem;">Gesonderter Rabatt (z.B. mit Kundenkarte o.ä.): ${formatter.format(product.specialDiscountPrice)} ${product.specialDiscountInPercentage ? `(${product.specialDiscountInPercentage})` : ''}</h5>` : ''}    
-                           ${product.oldPrice ? `<p style=" margin: 0; color: darkgray;font-size: 0.85rem;">Alter Preis: ${formatter.format(product.oldPrice)} ${product.discountInPercentage ? `(${product.discountInPercentage})` : ''}</p>` : ''}
+                           ${product.specialDiscountPrice ? `<h5 style="margin: 0; color: darkgray;font-size: 0.85rem;">Gesonderter Rabatt (z.B. mit Kundenkarte o.ä.): ${formatter.format(product.specialDiscountPrice)} ${product.specialDiscountInPercentage ? `(${product.specialDiscountInPercentage})` : ''}</h5>` : ''}    
+                           ${product.discountInPercentage ? `<p style="margin: 0; color: darkgray;font-size: 0.85rem;">Rabatt in Prozent: ${product.discountInPercentage}</p>` : ''}
                            
-                           ${product.description ? `<p style=" margin: 0; color: darkgray;font-size: 0.85rem;">${product.description}</p>` : ''}
-                           <!--
-                           ${product.baseQuantity ? `<p style=" margin: 0; color: darkgray;font-size: 0.85rem;">${product.baseQuantity}</p>` : ''}
-                           ${product.baseUnit ? `<p style=" margin: 0; color: darkgray;font-size: 0.85rem;">${product.baseUnit}</p>` : ''}
-                                   -->             
+                           ${product.description ? `<p style="margin: 0; color: darkgray;font-size: 0.85rem;">${product.description}</p>` : ''}          
                         </div>             
                     </td>
                 `;
